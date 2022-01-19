@@ -5,15 +5,9 @@
       <input id="rectWidthInput" type="range" id="start" name="volume" min="10" max="450" step="1" style="width: 500px">
       <span id="rectWidthLabel">pew</span>
 </div>
-
-<div>
-      <input id="rectHeightInput" type="range" id="start" name="volume" min="10" max="450" step="1" style="width: 500px">
-      <span id="rectHeightLabel">pew</span>
-</div>
-
 <div>
       
-      <input id="sizeInput" type="range" id="start" name="volume" min="0" max="200" step="1" style="width: 500px">
+      <input id="sizeInput" type="range" id="start" name="volume" min="0" max="0.5" step="0.01" style="width: 500px">
       <span id="sizeLabel">pew</span>
 </div>
 <div>
@@ -49,8 +43,8 @@
     var rectWidthInput = document.getElementById("rectWidthInput");
     var rectWidthLabel = document.getElementById("rectWidthLabel");
 
-    var rectHeightInput = document.getElementById("rectHeightInput");
-    var rectHeightLabel = document.getElementById("rectHeightLabel");
+    var rectWidthInput = document.getElementById("rectWidthInput");
+    var rectWidthLabel = document.getElementById("rectWidthLabel");
 
     var sizeInput = document.getElementById("sizeInput");
     var sizeLabel = document.getElementById("sizeLabel");
@@ -60,15 +54,8 @@
 
     function updateRectWidth() {
       rectWidthLabel.innerHTML = "Rect width: " + rectWidthInput.value;
-      sizeInput.max = Math.min(rectWidthInput.value, rectHeightInput.value) / 2;
-      updateSize();
-      draw();
-    }
-
-    function updateRectHeight() {
-      rectHeightLabel.innerHTML = "Rect height: " + rectHeightInput.value;
-      sizeInput.max = Math.min(rectWidthInput.value, rectHeightInput.value) / 2;
-      updateSize();
+      // sizeInput.max = Math.min(rectWidthInput.value, rectWidthInput.value) / 2;
+      // updateSize();
       draw();
     }
 
@@ -83,7 +70,6 @@
     }
 
     rectWidthInput.addEventListener('input', updateRectWidth);
-    rectHeightInput.addEventListener('input', updateRectHeight);
     sizeInput.addEventListener('input', updateSize);
     cornerInput.addEventListener('input', updateCorner);
 
@@ -122,9 +108,8 @@
     function draw() {
 
       var rectWidth = parseFloat(rectWidthInput.value);
-      var rectHeight = parseFloat(rectHeightInput.value);
 
-      var size = parseFloat(sizeInput.value);
+      var size = parseFloat(sizeInput.value) * rectWidth;
       var corner = parseFloat(cornerInput.value);
 
       var topLeft = [
@@ -142,17 +127,17 @@
       ];
 
       var bottomRight = [
-        {x: offset + rectWidth, y: offset + rectHeight-size},
-        {x: offset + rectWidth, y: offset + rectHeight-size+size*corner},
-        {x: offset + rectWidth-size+size*corner, y: offset + rectHeight},
-        {x: offset + rectWidth-size, y: offset + rectHeight},
+        {x: offset + rectWidth, y: offset + rectWidth-size},
+        {x: offset + rectWidth, y: offset + rectWidth-size+size*corner},
+        {x: offset + rectWidth-size+size*corner, y: offset + rectWidth},
+        {x: offset + rectWidth-size, y: offset + rectWidth},
       ];
 
       var bottomLeft = [
-        {x: offset + size, y: offset + rectHeight},
-        {x: offset + size-size*corner, y: offset + rectHeight},
-        {x: offset + 0, y: offset + rectHeight-size+size*corner},
-        {x: offset + 0, y: offset + rectHeight-size},
+        {x: offset + size, y: offset + rectWidth},
+        {x: offset + size-size*corner, y: offset + rectWidth},
+        {x: offset + 0, y: offset + rectWidth-size+size*corner},
+        {x: offset + 0, y: offset + rectWidth-size},
       ];
 
 
@@ -224,7 +209,6 @@
     }
 
     updateRectWidth();
-    updateRectHeight();
     updateSize();
     updateCorner();
   </script>
