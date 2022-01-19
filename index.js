@@ -49,35 +49,36 @@ sizeInput.addEventListener('input', updateSize);
 cornerInput.addEventListener('input', updateCorner);
 
 const offset = 10
+const bpOffset = 200
 
-function drawCornerFrame(corner) {
-    ctx2.strokeStyle = "#505050";
+function drawCornerFrame(ctx, corner) {
+    ctx.strokeStyle = "#505050";
 
-    ctx2.beginPath();
-    ctx2.arc(corner[0].x, corner[0].y, 2, 0, 2 * Math.PI);
-    ctx2.fill();
+    ctx.beginPath();
+    ctx.arc(bpOffset + corner[0].x, corner[0].y, 2, 0, 2 * Math.PI);
+    ctx.fill();
 
-    ctx2.beginPath();
-    ctx2.arc(corner[1].x, corner[1].y, 2, 0, 2 * Math.PI);
-    ctx2.fill();
+    ctx.beginPath();
+    ctx.arc(bpOffset + corner[1].x, corner[1].y, 2, 0, 2 * Math.PI);
+    ctx.fill();
 
-    ctx2.beginPath();
-    ctx2.arc(corner[2].x, corner[2].y, 2, 0, 2 * Math.PI);
-    ctx2.fill();
+    ctx.beginPath();
+    ctx.arc(bpOffset + corner[2].x, corner[2].y, 2, 0, 2 * Math.PI);
+    ctx.fill();
 
-    ctx2.beginPath();
-    ctx2.arc(corner[3].x, corner[3].y, 2, 0, 2 * Math.PI);
-    ctx2.fill();
+    ctx.beginPath();
+    ctx.arc(bpOffset + corner[3].x, corner[3].y, 2, 0, 2 * Math.PI);
+    ctx.fill();
 
-    ctx2.beginPath();
-    ctx2.moveTo(corner[0].x, corner[0].y);
-    ctx2.lineTo(corner[1].x, corner[1].y);
-    ctx2.stroke()
+    ctx.beginPath();
+    ctx.moveTo(bpOffset + corner[0].x, corner[0].y);
+    ctx.lineTo(bpOffset + corner[1].x, corner[1].y);
+    ctx.stroke()
 
-    ctx2.beginPath();
-    ctx2.moveTo(corner[2].x, corner[2].y);
-    ctx2.lineTo(corner[3].x, corner[3].y);
-    ctx2.stroke()
+    ctx.beginPath();
+    ctx.moveTo(bpOffset + corner[2].x, corner[2].y);
+    ctx.lineTo(bpOffset + corner[3].x, corner[3].y);
+    ctx.stroke()
 }
 
 function drawAll() {
@@ -181,39 +182,43 @@ function draw(ctx, rectWidth, size, corner) {
 
     // frame
 
-    // ctx2.strokeStyle = "#000000";
+    ctx.strokeStyle = "#000000";
 
-    // ctx2.clearRect(0, 0, ctx2.width, ctx2.height);
-    // ctx2.beginPath();
+    ctx.clearRect(bpOffset, 0, ctx.width - bpOffset, ctx.height);
+    ctx.beginPath();
 
 
-    // ctx2.moveTo(topLeft[0].x, topLeft[0].y);
-    // ctx2.bezierCurveTo(topLeft[1].x, topLeft[1].y,
-    //     topLeft[2].x, topLeft[2].y,
-    //     topLeft[3].x, topLeft[3].y);
+    ctx.moveTo(bpOffset + topLeft[0].x, topLeft[0].y);
+    ctx.bezierCurveTo(
+        bpOffset + topLeft[1].x, topLeft[1].y,
+        bpOffset + topLeft[2].x, topLeft[2].y,
+        bpOffset + topLeft[3].x, topLeft[3].y);
 
-    // ctx2.lineTo(topRight[0].x, topRight[0].y);
-    // ctx2.bezierCurveTo(topRight[1].x, topRight[1].y,
-    //     topRight[2].x, topRight[2].y,
-    //     topRight[3].x, topRight[3].y);
+    ctx.lineTo(bpOffset + topRight[0].x, topRight[0].y);
+    ctx.bezierCurveTo(
+        bpOffset + topRight[1].x, topRight[1].y,
+        bpOffset + topRight[2].x, topRight[2].y,
+        bpOffset + topRight[3].x, topRight[3].y);
 
-    // ctx2.lineTo(bottomRight[0].x, bottomRight[0].y);
-    // ctx2.bezierCurveTo(bottomRight[1].x, bottomRight[1].y,
-    //     bottomRight[2].x, bottomRight[2].y,
-    //     bottomRight[3].x, bottomRight[3].y);
+    ctx.lineTo(bpOffset + bottomRight[0].x, bottomRight[0].y);
+    ctx.bezierCurveTo(
+        bpOffset + bottomRight[1].x, bottomRight[1].y,
+        bpOffset + bottomRight[2].x, bottomRight[2].y,
+        bpOffset + bottomRight[3].x, bottomRight[3].y);
 
-    // ctx2.lineTo(bottomLeft[0].x, bottomLeft[0].y);
-    // ctx2.bezierCurveTo(bottomLeft[1].x, bottomLeft[1].y,
-    //     bottomLeft[2].x, bottomLeft[2].y,
-    //     bottomLeft[3].x, bottomLeft[3].y);
+    ctx.lineTo(bpOffset + bottomLeft[0].x, bottomLeft[0].y);
+    ctx.bezierCurveTo(
+        bpOffset + bottomLeft[1].x, bottomLeft[1].y,
+        bpOffset + bottomLeft[2].x, bottomLeft[2].y,
+        bpOffset + bottomLeft[3].x, bottomLeft[3].y);
 
-    // ctx2.closePath();
-    // ctx2.stroke()
+    ctx.closePath();
+    ctx.stroke()
 
-    // drawCornerFrame(topLeft)
-    // drawCornerFrame(topRight)
-    // drawCornerFrame(bottomRight)
-    // drawCornerFrame(bottomLeft)
+    drawCornerFrame(ctx, topLeft)
+    drawCornerFrame(ctx, topRight)
+    drawCornerFrame(ctx, bottomRight)
+    drawCornerFrame(ctx, bottomLeft)
 
 }
 
